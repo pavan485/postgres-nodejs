@@ -2,10 +2,8 @@
 #
 Catchpoint Integration with PostgreSQL
 ---
-Grafana ships with a built-in PostgreSQL data source plugin that allows you to query and visualize data from a PostgreSQL compatible database.
-In PostgreSQL, data is stored in each row as a json.
 
-Integration use case:
+PostgreSQL is a powerful, open source object-relational database system.
 This integration relies on a NodeJS script that runs once every15 minutes to pull raw performance data of synthetic tests. The raw performance data pulled through REST API is parsed with correct timestamp, breakdowns and all performance metrics to be stored in PostgreSQL. Once the data is stored in PostgreSQL, it can be connected to any analytics tools and plot similar graphs to Catchpoint with ease.
 
 
@@ -20,7 +18,8 @@ This integration relies on a NodeJS script that runs once every15 minutes to pul
 
 ### Configuration
 1.	In the “config_catchpoint.yaml” file under config sub-directory, enter your Catchpoint API consumer key and secret. This can be found in the API details page.
-2.	In the test_ids dictionary of the “config_catchpoint.yaml” file, enter the Test IDs you want to pull the data for in a string array format. 
+2.	In the test_ids dictionary of the “config_catchpoint.js” file, enter the Test IDs you want to pull the data for in an array format. 
+
 Note: Please make sure to enter only the Test ID in the array belonging to the respective Test Type
 
 
@@ -40,10 +39,10 @@ Note: Please make sure to enter only the Test ID in the array belonging to the r
     }
 
 ---
-3.	In the "config_postgres.yml" file, enter your PostgreSQL server address and port. The default Graphite URL for a local installation is http://localhost:5432
+3.	In the "config_postgres.js" file, enter your PostgreSQL server address and port. The default Graphite URL for a local installation is http://localhost:5432
 
 ## How to run
-- In the /postgres-nodejs directory, run `python application.py` after uncommenting the `while (True):` and `sleep.time()` line in the same file
+- In the /postgres-nodejs directory, run `node insert_db.js` after uncommenting the `var interval=setInterval(run,900000)` and commenting out the `run()` line in the same file
 
 **or**
 
@@ -72,4 +71,4 @@ Note: Please make sure to enter only the Test ID in the array belonging to the r
     └── insert_db.js          ## main file
 
 
-Once the script starts running and data is inserted into PostgreSQL, it can queried PsQL.
+Once the script starts running and data is inserted into PostgreSQL, it can queried using PsQL.
